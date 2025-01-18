@@ -29,7 +29,6 @@ class Program
 
     static void ListBands(bool showGrade)
     {
-        Console.Clear();
         ShowTitle("Listando Todas as Bandas Registradas:");
 
         if (bandsList.Count == 0)
@@ -49,30 +48,47 @@ class Program
         }
 
         if (showGrade) return;
-        Console.WriteLine("Pressione qualquer tecla para voltar ao menu principal");
+        Console.Write("\nPressione qualquer tecla para voltar ao menu principal");
         Console.ReadKey();
         Console.Clear();
     }
 
     static void ShowTitle(string title)
     {
+        Console.Clear();
         int titleLength = title.Length;
         string titleSeparator = new string('*', titleLength);
         Console.WriteLine(titleSeparator);
         Console.WriteLine(title);
-        Console.WriteLine(titleSeparator);
+        Console.WriteLine(titleSeparator + "\n");
     }
 
     static void AddBand()
     {
-        Console.Clear();
         ShowTitle("Registro de Banda");
-        Console.WriteLine("Digite o nome da banda:");
+        Console.Write("Digite o nome da banda ou 'sair' para voltar: ");
         string bandName = Console.ReadLine() ?? string.Empty;
+
+        if (bandName == "sair")
+        {
+            Console.Clear();
+            return;
+        }
+
+        if (bandsList.ContainsKey(bandName))
+        {
+            Console.WriteLine("Banda já cadastrada!");
+            Thread.Sleep(2000);
+            Console.Clear();
+            return;
+        }
 
         if (string.IsNullOrEmpty(bandName))
         {
-            Console.WriteLine("Nome da banda não pode ser vazio");
+            Console.Clear();
+            Console.WriteLine("Nome da banda não pode ser vazio!");
+            Thread.Sleep(2000);
+            AddBand();
             return;
         }
 
@@ -82,25 +98,65 @@ class Program
         Console.Clear();
     }
 
+    static void RemoveBand()
+    {
+        ShowTitle("Remoção de Banda");
+        ListBands(true);
+        Console.Write("\nDigite o nome da banda ou 'sair' para voltar: ");
+        string bandName = Console.ReadLine() ?? string.Empty;
+
+        if (bandName == "sair")
+        {
+            Console.Clear();
+            return;
+        }
+
+        if (!bandsList.ContainsKey(bandName))
+        {
+            Console.Clear();
+            Console.WriteLine("\nBanda não encontrada!");
+            Thread.Sleep(2000);
+            RemoveBand();
+            return;
+        }
+
+        bandsList.Remove(bandName);
+        Console.WriteLine("\nBanda removida com sucesso!");
+        Thread.Sleep(2000);
+        Console.Clear();
+    }
+
     static void BandNote()
     {
         ShowTitle("Avaliação de Banda");
         ListBands(true);
-        Console.WriteLine("\nDigite o nome da banda que deseja avaliar:");
+        Console.Write("\nDigite o nome da banda ou 'sair' para voltar: ");
         string bandName = Console.ReadLine() ?? string.Empty;
 
-        if (!bandsList.ContainsKey(bandName))
+        if (bandName == "sair")
         {
-            Console.WriteLine("Banda não encontrada");
+            Console.Clear();
             return;
         }
 
-        Console.WriteLine("Digite a nota da banda:");
+        if (!bandsList.ContainsKey(bandName))
+        {
+            Console.Clear();
+            Console.WriteLine("\nBanda não encontrada!");
+            Thread.Sleep(2000);
+            BandNote();
+            return;
+        }
+
+        Console.Write("Digite a nota da banda: ");
         int note = int.Parse(Console.ReadLine() ?? string.Empty);
 
         if (note < 0 || note > 10)
         {
-            Console.WriteLine("\nNota inválida nota deve ser de 0 a 10");
+            Console.Clear();
+            Console.WriteLine("\nNota inválida nota deve ser de 0 a 10!");
+            Thread.Sleep(2000);
+            BandNote();
             return;
         }
 
@@ -116,10 +172,13 @@ class Program
         ShowTitle("Menu de opções");
         Console.WriteLine("1 - Listar bandas");
         Console.WriteLine("2 - Adicionar banda");
-        Console.WriteLine("3 - Dar nota para banda");
-        Console.WriteLine("4 - Sair");
+        Console.WriteLine("3 - Remover banda");
+        Console.WriteLine("4 - Dar nota para banda");
+        Console.WriteLine("5 - Sair\n");
 
+        Console.Write("Digite a opção desejada: ");
         string option = Console.ReadLine() ?? string.Empty;
+
 
         switch (option)
         {
@@ -130,14 +189,19 @@ class Program
                 AddBand();
                 break;
             case "3":
-                BandNote();
+                RemoveBand();
                 break;
             case "4":
+                BandNote();
+                break;
+            case "5":
                 Console.Clear();
                 Environment.Exit(0);
                 break;
             default:
-                Console.WriteLine("Opção inválida!");
+                Console.Clear();
+                ShowTitle("Opção inválida!");
+                Thread.Sleep(2000);
                 break;
         }
     }
