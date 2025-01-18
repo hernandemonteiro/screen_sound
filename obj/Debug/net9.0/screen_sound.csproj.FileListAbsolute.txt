@@ -12,3 +12,4 @@
 /home/darkhorse/Desktop/SSD/codes/study/C#/screen_sound/obj/Debug/net9.0/screen_sound.pdb
 /home/darkhorse/Desktop/SSD/codes/study/C#/screen_sound/obj/Debug/net9.0/screen_sound.genruntimeconfig.cache
 /home/darkhorse/Desktop/SSD/codes/study/C#/screen_sound/obj/Debug/net9.0/ref/screen_sound.dll
+/home/darkhorse/Desktop/SSD/codes/study/C#/screen_sound/obj/Debug/net9.0/screen_sound.sourcelink.json
