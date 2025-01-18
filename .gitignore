@@ -1,0 +1,63 @@
+# Build results
+bin/
+obj/
+
+# VS Code files
+.vscode/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependency caches
+*.lock
+*.cache
+*.tmp
+
+# Rider IDE files
+.idea/
+*.sln.iml
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# DotNet Console project files
+*.dbmdl
+*.pfx
+*.publishsettings
+*.template.json
+
+# Local Application Data
+.localhistory/
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Debug & Release Folders
+Debug/
+Release/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+
+# Generated files by NuGet
+project.lock.json
+project.fragment.lock.json
+artifacts/
